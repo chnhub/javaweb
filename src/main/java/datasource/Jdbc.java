@@ -1,3 +1,5 @@
+package datasource;
+
 import java.sql.*;
 
 public class Jdbc {
@@ -26,7 +28,7 @@ public class Jdbc {
      Statement stmt = null;
      ResultSet rs = null;
      try {
-        conn = JDBCUtils.getConnection();
+        conn = datasource.JDBCUtils.getConnection();
         stmt = conn.createStatement();
         String sql = "select * from test";
         rs = stmt.executeQuery(sql);
@@ -37,14 +39,14 @@ public class Jdbc {
      }catch (Exception e){
         e.printStackTrace();
      }finally {
-         JDBCUtils.release(rs, stmt, conn);
+         datasource.JDBCUtils.release(rs, stmt, conn);
      }*/
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         MyDataSource myDataSource = null;
         try{
-//            conn = JDBCUtils.getConnection();
+//            conn = datasource.JDBCUtils.getConnection();
             myDataSource = new MyDataSource();
             conn = myDataSource.getConnection();
 

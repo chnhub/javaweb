@@ -1,8 +1,7 @@
+package datasource;
+
 import java.sql.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.Executor;
 
 public class MyConnectionWrapper extends ConnectionWrapper {
     //装饰器
