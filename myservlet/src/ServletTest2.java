@@ -20,7 +20,7 @@ public class ServletTest2 extends HttpServlet {
         while (names.hasMoreElements()){
             String name = names.nextElement();
             String value = config.getInitParameter(name);
-            Map<String, String> map = new HashMap<>();
+            Map<String, String> map = new HashMap();
             map.put(name, value);
             result.add(map);
         }

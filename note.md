@@ -99,3 +99,12 @@ mklink /D repository D:\.m2\repository
 ###2. IDEA启动tomcat jsp程序报错”“
 Cannot start compilation: the output path is not specified for module "Test". Specify the out   
 设置project complie out的文件夹一般为项目\out
+###3.IDEA配置JSP web项目
+``` 
+多模块时：
+Project Structure:
+1.配置Project complier output，一般为project\out
+2.配置Modules，添加modul，moule下添加freamwork - web
+3.配置Artifacts，添加Web Application Archive(A)后，再添加Web Application Artifacts from A。配置后才可jsp文件中右键run
+4.配置Tomcat，注意Deployment下的application context的访问路径配置
+```
