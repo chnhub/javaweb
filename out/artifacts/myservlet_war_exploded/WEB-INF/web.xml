@@ -41,6 +41,16 @@
         <load-on-startup>2</load-on-startup>
 
     </servlet>
+    <servlet>
+        <servlet-name>ResponseChn</servlet-name>
+        <servlet-class>Response</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VisitServlet</servlet-name>
+        <servlet-class>VisitServlet</servlet-class>
+    </servlet>
+
+
 
     <servlet-mapping>
         <servlet-name>MyServlet</servlet-name>
@@ -54,5 +64,13 @@
         <servlet-name>LifeServlet</servlet-name>
 <!--        <url-pattern>/lifeservlet</url-pattern>-->
         <url-pattern>/aaa/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResponseChn</servlet-name>
+        <url-pattern>/responsechn</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VisitServlet</servlet-name>
+        <url-pattern>/visitservlet</url-pattern>
     </servlet-mapping>
 </web-app>

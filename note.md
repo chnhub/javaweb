@@ -86,7 +86,7 @@ http协议：规定了浏览器和服务端的数据交互的方式
         <url-pattern>/servlet</url-pattern>
     </servlet-mapping>
 ```
-###7.Respone
+###7.Response
 ``` 
 1. 设置状态码 setState
     1xx 信息状态码
@@ -101,6 +101,38 @@ http协议：规定了浏览器和服务端的数据交互的方式
     重定向 sendRedirect
     浏览器字符集  setContentType
     字符流缓存区字符集 setCharacterEncoding
+4. 字节流和字符流返回中文
+    字符流 getOutputStream().write() 可能乱码
+        与中文转成字节数组及浏览器打开方式（打开采用的默认字符集）有关
+            中文转字节数据时与浏览器打开时一致
+    字节流 getWriter().println() 一定乱码
+        response设计默认缓冲区编码为ISO-8859-1，这个字符集是不支持中文的
+            设置缓冲区的编码
+```
+###8.Request
+``` 
+1. 获得请求方式 getMethod()
+2. 获得路径参数 getQueryString()
+3. 客户机IP地址 getRemoteAddr()
+4. URL和URI getRequestURL() getRequestURI()
+5. 浏览器类型 getHeader("User-Agent")
+6. 表单参数 getParameter("username") getParameterValues("");
+post请求乱码 request会把数据放入缓存区，缓存区默认编码不支持中文
+get请求url乱码，url中中文被转码（ISO-8859-1）存入缓存区
+    先转iso-8895再转utf-8
+...
+```
+###9.会话
+``` 
+什么是会话：
+    用户打开浏览器，点击超链接访问服务器web资源，然后关闭浏览器，整个过程为一次会话
+
+Cookie：
+    客户端技术
+！！！cookie中不允许存在空格
+Session:
+    服务端技术，服务器为每个用户创建独享的session对象，
+
 ```
 
 ##二、工具有关
