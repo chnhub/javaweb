@@ -86,7 +86,22 @@ http协议：规定了浏览器和服务端的数据交互的方式
         <url-pattern>/servlet</url-pattern>
     </servlet-mapping>
 ```
-
+###7.Respone
+``` 
+1. 设置状态码 setState
+    1xx 信息状态码
+    2xx 成功状态码
+    3xx 重定向状态码
+    4xx 客户端错误
+    5xx 服务器错误
+2. 设置响应头 setHeader、addHeader
+    setHeader("content-Type","text/plain")赋值
+    addHeader("content-Type","text/plain")追加
+3. 设置响应体 getOutputStream()字节流、getWriter()字符流
+    重定向 sendRedirect
+    浏览器字符集  setContentType
+    字符流缓存区字符集 setCharacterEncoding
+```
 
 ##二、工具有关
 ###1. 解决IDEA 2020.1.1 找不到程序包和符号
