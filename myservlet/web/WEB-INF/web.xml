@@ -58,6 +58,10 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>Login</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginOut</servlet-name>
+        <servlet-class>LoginOut</servlet-class>
+    </servlet>
 
 
 
@@ -85,5 +89,18 @@
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginOut</servlet-name>
+        <url-pattern>/loginOut</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>login_success</servlet-name>
+        <jsp-file>/WEB-INF/login_success.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>login_success</servlet-name>
+        <url-pattern>/login_success.jsp</url-pattern>
     </servlet-mapping>
 </web-app>

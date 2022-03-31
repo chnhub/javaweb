@@ -46,6 +46,12 @@
           console.log(data)
           if(data&&data.success === true){
             alert("登录成功");
+<%--            <jsp:forward page = "/WEB-INF/login_success.jsp" />--%>
+
+            window.location.href="/login_success.jsp";
+          }else{
+            alert("登录失败");
+
           }
         },
         error:function (data){
@@ -59,7 +65,7 @@
   </script>
   <body>
   <form id="login_form"  onsubmit="return formSubmit(this,event)" >
-    <span>用户名：</span><input name="name"/> </br>
+    <span>用户名：</span><input name="username"/> </br>
     <span>密码：</span><input name="password"/> </br>
     <span>验证码：</span><input name="verification"/> </br>
 <%--    <input type="checkbox"/><span>记住用户名</span></br>--%>
