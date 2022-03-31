@@ -130,9 +130,32 @@ get请求url乱码，url中中文被转码（ISO-8859-1）存入缓存区
 Cookie：
     客户端技术
 ！！！cookie中不允许存在空格
+    Cookie的分类：
+        默认级别：关闭浏览器cookie销毁，保存再浏览器内存中
+        持久级别：有效时间的cookie，保存到硬盘上
+    API:
+        获取cookie: new Cookie(key, value)
+        获得名称：getname()
+        获得值：getvalue()
+        设置域名：setDomain()
+        设置路径：setpath()
+        设置有效期：setMaxAge()
+    细节：
+        cookie大小和个数是有限制的，浏览器一般存放300个，每个站点20个，每个cookie4kb
+        默认为会话级别cookie，退出浏览器删除
+        手动删除cookie，有效时长设为0即可
 Session:
     服务端技术，服务器为每个用户创建独享的session对象，
-
+    将数据保存到服务器端，一个浏览器独占一个session对象
+    为什么用session :  
+        session没有大小和个数限制
+        数据是保存到服务器上
+    API:
+        获得session：getSession()
+        设置数据：setAttribute(name, value)
+        获取数据：getAttribute(name)
+    原理：
+        基于cookie
 ```
 
 ##二、工具有关
