@@ -8,6 +8,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class VisitServlet extends HttpServlet {
+
+    public String findCookie(Cookie[] cookies, String key){
+        if (cookies == null || (cookies.length <= 0)) {
+            return null;
+        }
+        for (Cookie cookie : cookies) {
+            if (key.equals(cookie.getName())) {
+                return cookie.getValue();
+            }
+        }
+        return null;
+    }
     public boolean ifFirst(Cookie[] cookies) {
         if (cookies == null || (cookies.length <= 0)) {
             return true;
@@ -27,24 +39,18 @@ public class VisitServlet extends HttpServlet {
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd.HH:mm:ss");
         System.out.println(date.format(new Date()));
         Cookie cookie = new Cookie("time",date.format(new Date()));
+        //Cookie cookie = new Cookie("time",String.valueOf(new Date().getTime()));
+        cookie.setPath("/");
+        cookie.setMaxAge(60*60);
         resp.addCookie(cookie);
-        if(ifFirst(cookies)){
-//        Cookie cookie = new Cookie("time",String.valueOf(new Date().getTime()));
+
+        if(findCookie(cookies,"time") == null){
             resp.getWriter().println("<h2>欢迎第一次访问<h2>");
         }else{
-
 //            SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd.HH:mm:ss");
 //            System.out.println(date.format(new Date()));
 //            Cookie cookie = new Cookie("time",date.format(new Date()));
-////        Cookie cookie = new Cookie("time",String.valueOf(new Date().getTime()));
-//            resp.addCookie(cookie);
-            String lastTime = null;
-            for (Cookie cookieReq: req.getCookies()) {
-                if(cookieReq!=null&&"time".equals(cookieReq.getName())){
-                    lastTime = cookieReq.getValue();
-                }
-            }
-            resp.getWriter().println(lastTime);
+            resp.getWriter().println(findCookie(cookies,"time"));
         }
 
     }

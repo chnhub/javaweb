@@ -12,5 +12,7 @@ buildNumber.properties
 
 .idea
 /target
+/out
 **/*.iml
-
+**/out/
+**/target/

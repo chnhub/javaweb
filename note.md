@@ -156,6 +156,23 @@ Session:
         获取数据：getAttribute(name)
     原理：
         基于cookie
+    作用范围:
+        一次会话（浏览器从打开到关闭的过程）
+    请求范围：
+        创建：客户端发送一次请求，服务端创建一个request对象
+        销毁：服务端响应客户端请求后
+        存取：setAttribute() getAttribute()
+        范围：一次请求（转发一次请求，重定向两次）
+    会话范围：
+        创建：服务器端第一次调用getSeesion()
+        销毁：1.session过期（默认30min）2.非正常关闭服务器 3.手动调用invalidate()
+        存取：setAttribute() getAttribute()
+        范围：一次会话的范围
+    应用范围：
+        创建：服务器创建的时候
+        销毁：服务器关闭的时，或移除时
+        存取：同上
+        范围：整个应用的范围
 ```
 
 ##二、工具有关
@@ -177,4 +194,12 @@ Project Structure:
 2.配置Modules，添加modul，moule下添加freamwork - web
 3.配置Artifacts，添加Web Application Archive(A)后，再添加Web Application Artifacts from A。配置后才可jsp文件中右键run
 4.配置Tomcat，注意Deployment下的application context的访问路径配置
+```
+###4.jsp项目报错“java: Compilation failed: internal java compiler error”
+```
+idea - setting - java complier设置Java1.8
+```
+###5.jsp项目启动后找不到index.jsp
+``` 
+删除Project Structure下的lib依赖
 ```
