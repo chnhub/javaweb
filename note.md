@@ -174,7 +174,187 @@ Session:
         存取：同上
         范围：整个应用的范围
 ```
+###10.servlet监听器
+```
+监听事件源 ServletContext、HttpSession、ServletRequest
+分类：
+    一类：监听三个域对象的创建和销毁的监听器（三个）
+    二类：监听三个域对象的属性变更（属性添加、移除、替换）的监听器（三个）
+    三类：监听httpSession中javaBean的状态改变（钝化、活化、绑定、解除绑定）的监听
+ServletContext：
+    用来监听ServletContext域对象的创建和销毁的监听器
+    创建：服务器启动，每个web应用创建单独servletContext对象
+    销毁：服务器关闭时，或项目从web服务器中移除
+    ServletContextListener:
+        创建：contextInitialized()
+        销毁：contextDestroyed()
+        配置：webxml中配置 <listener><listener-class></listener-class></listener>
+    ContextLoaderListener:加载框架的配置文件,定时任务调度
+    
+HttpSession:
+    监听HttpSession对象的创建和销毁
+    创建：服务器第一次调用getSession()方法的时候
+    销毁：非正常关闭、session过期、session.invalidate()
+    配置：<listener></linstener>
+    HttpSessionListener:
+    问题：
+        访问html是否创建session：不会
+        访问jsp：会
+        访问servlet:不会（默认调用getSession）
+ServletRequest:
+    监听ServletRequest对象的创建和销毁
+    创建：发送一次请求的时候
+    销毁：服务器做出响应之后
+    配置：<listener></listener>
+    问题：
+        访问html是否创建对象：会
+        访问jsp：会
+        访问servlet:会
+监听三个域对象：
+    ServletContextAttributeListener:ServletContext对象属性变更（添加、移除、替换）的监听器
+    HttpSessionAttrbuteListener:HttpSession对象属性变更（添加、移除、替换）的监听器
+    ServletRequestAttrbuteListener:ServletRequest对象属性变更（添加、移除、替换）的监听器
+HttpSession中java类状态改变的监听器：
+    钝化：session对象持久化到一个储存设备中
+        HttpSessionActivationListener
+    活化：从存储设备恢复成对象
+        HttpSessionActivationListener
+    绑定：绑定到session中
+        HttpSessionBindingListener
+    解除：从session解除绑定
+        HttpSessionBindingListener
+    配置完成session的序列化和反序列化：context.xml
+```
+###11.Filter
+```
+Filter:过滤客户端发送到服务器端的请求
+code: implentments、init()、doFilter()、destroy()
+    doFilter()放行：chain.doFilter(req,resp)
+    <filter>
+        <filter-name></filter-name>
+        <filter-class></filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name></filter-name>
+        <url-pattern></url-pattern>
+    </filter-mapping>
+FilterChain:
+what:过滤器链，多个Filter组合起来称为
+    默认顺序按照web.xml注册的顺序
+Filter生命周期：
+    创建和销毁是由web服务器负责，web应用启动时创建，filter对象只会创建（init）一次
+    服务器关闭时销毁
+FilterConfig对象：
+    获得Filter相关配置的对象，包括web.xml中<initParam>
+    <url-parttern>：匹配
+        路径：/aaa
+        目录：/aaa/*
+        扩展名：*.jsp
+    <servlet-name>：按照servlet名称拦截
+    <dispatcher>：转发
+        REQUEST:默认值，拦截的是请求
+        FORWARD:转发
+        INCLUDE:页面包含的时候进行拦截
+        ERROR:页面出现全局错误时
 
+```
+###12.文件上传
+```
+技术:
+    FileUpload:
+    Servlet3.0
+    Struts2
+三要素：
+    需是POST请求
+    表单需要有<input type='file'>要素，需要有name属性和值
+    表单enctype="multipart/form-data"
+原理：
+header:
+    boundary=---------------*****//分割线
+    ---------------*****//分割线
+    filename="" --------->文件上传项
+    231231  --------->文件数据内容
+    ---------------*****//分割线
+    name="info" --------->普通项
+接收：
+    1.创建磁盘文件项工厂
+        DiskFileItemFactory file = new ...();
+    2.创建一个核心的解析类
+        ServletFileUpload upload = new ...(file);
+    3.利用核心类解析Request
+        List<FileItem> list = upload.parseRequest(request)；
+    4.遍历集合，判断文件类型   
+    for(FileItem fileItem:list){
+        if(fileItem.isFormField){
+            fileItem.getFieldName();
+            fileItem.getString("UTF-8")
+        }else{
+        }
+    }
+```      
+###13.分层
+```
+web层：javaweb相关操作，如request,session对象
+业务层：完成业务逻辑
+dao层：与数据库交互
+```
+###14.Redis
+```
+what: 基于内存可持久的日志型、key-value数据库
+why:
+    特性：支持持久化
+        支持key-value,set,hash等数据结构
+        支持备份，master-slave模式数据备份
+    优势：
+        读：110000次/s，写：81000/次
+        丰富类型：支持二进制Strings，Lists,Sets
+        原子性：所有操作原子性，多个操作合并原子性执行
+        丰富特性：支持publish/subscribe，通知，key过期
+                
+how:
+```
+###14.反射
+```
+what:一种计算机处理方式，是程序可以访问、检测和修改他本身状态或行为的一种能力
+    在运行状态中，对任意一个类，都可以获得这个类的所有属性和方法，对任意一个对象，都能够
+    调用它的任意方法和属性，这种动态获取信息及动态调用对象的能力成为Java反射机制
+why:
+    优点：
+    提高灵活性和扩展性
+    降低耦合性，提高自适应能力
+    允许程序创建和控制任何类，无需提前硬编码目标类
+    缺点：
+    性能
+how:
+    Class:
+Class可以代表人任意类或接口类型
+  -获取方式：
+  1.getClass()
+    User user = new User();
+    Class cla = user.getClass();
+  2.点class
+    Class cla = User.class;
+  3.forName
+    Class cla=Class.forName("com.*.*.*");  
+  -通过Class获得对象   
+    Constructor:
+        描述单个构造器，可实例化对象
+        getConstructor()    获取类的public构造
+        getConstructors()   获取类所有的public构造
+        getDeclaredConstructor()
+        getDeclaredConstructors()   所有方法都可一
+        以上两个不仅可以获取pulic也可以获取其他权限
+        实例化对象newInstance()，不是pulic通过AccessibleObject.setAccessible()取消检查
+    Field:
+        描述的属性对象
+        获取：getField(),getFields(),getDeclaredField()
+        赋值：set(field,value)
+        取值：get(field)
+    Method:
+    案例：
+
+
+```    
 ##二、工具有关
 ###1. 解决IDEA 2020.1.1 找不到程序包和符号
 ```
