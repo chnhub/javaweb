@@ -11,7 +11,9 @@
 
     <artifactId>myservlet</artifactId>
     <version>1.0</version>
-<!--        <packaging>war</packaging>-->
+    <name>myservlet</name>
+
+    <!--        <packaging>war</packaging>-->
 
     <dependencies>
     <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
