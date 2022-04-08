@@ -351,9 +351,29 @@ Class可以代表人任意类或接口类型
         赋值：set(field,value)
         取值：get(field)
     Method:
+        invoke()
     案例：
 
 
+```
+###15.代理
+```
+套一层，调用原类
+可以把业务和权限分开，比如是否有权限，日志、性能记录等
+动态代理：
+    java提供java.lang.reflect.Proxy，它可以帮助我们完成动态代理的创建
+    newProxyInstance(1,2,3)得到一个代理对象，前提是实现接口的
+        1.目标对象的类加载器
+            Class.getClassLoader()
+        2.目录对象实现的接口Class[]
+            Class.getInerFaces()
+        这两是在JVM中构造目标对象的代理对象
+        3.代理实例的调用处理程序实现的接口
+            IvnocationHandler来监听代理对象的调用行为
+            return method.invoke(target, args)
+            
+        
+   
 ```    
 ##二、工具有关
 ###1. 解决IDEA 2020.1.1 找不到程序包和符号
