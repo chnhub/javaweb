@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <bean id="person" class="com.testchn.bean.model.Person">
+        <property name="name" value="test"></property>
+        <property name="age" value="12"></property>
+        <property name="height" value="128cm"></property>
+    </bean>
+    <bean id="book" class="com.testchn.bean.model.Book" init-method="initBook" destroy-method="destroyBook"></bean>
+    <bean id="process" class="com.testchn.bean.MyBeanPostProcess"></bean>
+    <context:component-scan base-package="com.testchn.bean"></context:component-scan>
+</beans>

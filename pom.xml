@@ -10,7 +10,8 @@
 
     <modules>
         <module>02.myservlet</module>
-        <module>bean</module>
+        <module>03.bean</module>
+        <module>aop</module>
     </modules>
 
     <properties>
